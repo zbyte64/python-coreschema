@@ -30,6 +30,11 @@ def push_index(errors, key):
 class Schema(object):
     errors = {}
 
+    def __new__(cls, *args, **kwargs):
+        if 'enum' in kwargs:
+            return Enum(**kwargs)
+        return object.__new__(cls)
+
     def __init__(self, title='', description='', default=None):
         self.title = title
         self.description = description
